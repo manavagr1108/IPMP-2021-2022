@@ -1,9 +1,9 @@
 // Given an array A[] consisting 0s, 1s and 2s. The task is to write a function that sorts the given array. The functions should put all 0s first, then all 1s and all 2s in last
 #include <bits/stdc++.h>
 using namespace std;
-int sergregateOneZeroTwo(int *arr, int n)
+int sergregateOneZeroTwo(int *arr, int n, int two)
 {
-    int l = 0, r = n - 1;
+    int l = 0, r = n - 1 - two;
     int change[n];
     for (int i = 0; i < n; i++)
     {
@@ -12,12 +12,17 @@ int sergregateOneZeroTwo(int *arr, int n)
             change[l] = arr[i];
             l++;
         }
-        else
+        else if (arr[i] == 1)
         {
             change[r] = arr[i];
             r--;
         }
     }
+    for (int i = 0; i < two; i++)
+    {
+        change[n - two + i] =  2;
+    }
+    
     for (int i = 0; i < n; i++)
     {
         arr[i] = change[i];
@@ -33,10 +38,10 @@ int main()
     {
         cin >> arr[i];
         if(arr[i] == 2 ){
-            =
+            two++;
         }
     }
-    sergregateOneZeroTwo(arr, n);
+    sergregateOneZeroTwo(arr, n , two);
     for (int i = 0; i < n; i++)
     {
         cout << arr[i] << " ";
