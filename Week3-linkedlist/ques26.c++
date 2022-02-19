@@ -34,18 +34,24 @@ void insert()
         size++;
     }
 }
-node * merge(node *head1 , node *head2){
-    node * ptr1 = head1;
-    node * ptr2 = head2;
-    node * temp1 , * temp2;
-    while(ptr1 != NULL && ptr2 != NULL){
-        if(ptr1->next->data > ptr2->next->data){
-            
-        }
-        else if(ptr1->next->data <= ptr2->next->data){
-            
-        }
+node *merge(node *head1, node *head2)
+{
+    node *  final = NULL;
+    if(head1 == NULL){
+        return head2;
     }
+    else if(head2 == NULL) {
+        return head1;
+    }
+    if(head1->data >= head2->data){
+        return head2;
+        final->next = merge(head1,head2->next);
+    }
+    else {
+        return head1;
+        final->next = merge(head1->next,head2);
+    }
+    return final;
 }
 node *MergeSort(node *head, int size)
 {
@@ -57,10 +63,9 @@ node *MergeSort(node *head, int size)
     {
         mid = mid->next;
     }
-    head = MergeSort(head,size/2);
-    mid = MergeSort(mid,size/2);
-    head = merge(head,mid);
-    
+    head = MergeSort(head, size / 2);
+    mid = MergeSort(mid, size / 2);
+    head = merge(head, mid);
 }
 void displayAll()
 {
@@ -83,7 +88,7 @@ int main()
     int c;
     cout << "Enter choice :" << endl;
     cout << "1.Insert element" << endl;
-    cout << "2.To delete a node list" << endl;
+    cout << "2.MergeSort" << endl;
     cout << "3.Display all element in the list" << endl;
     cin >> c;
     while (c)
@@ -94,7 +99,7 @@ int main()
             insert();
             break;
         case 2:
-            MergeSort();
+            MergeSort(head,size);
             break;
         case 3:
             displayAll();
@@ -102,7 +107,7 @@ int main()
         }
         cout << "Enter choice :" << endl;
         cout << "1.Insert element" << endl;
-        cout << "2.To delete N node after M nodes in a list" << endl;
+        cout << "2.Merge Sort" << endl;
         cout << "3.Display all element in the list" << endl;
         cin >> c;
     }
